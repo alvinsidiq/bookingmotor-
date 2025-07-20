@@ -20,38 +20,37 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-  public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'icon' => 'nullable|image|max:1024',
-        'image' => 'nullable|image|max:2048',
-        'is_active' => 'sometimes|boolean',
-        'sort_order' => 'nullable|integer',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'icon' => 'nullable|image|max:1024',
+            'image' => 'nullable|image|max:2048',
+            'is_active' => 'sometimes|boolean',
+            'sort_order' => 'nullable|integer',
+        ]);
 
-    $data = [
-        'name' => $request->name,
-        'slug' => Str::slug($request->name),
-        'description' => $request->description,
-        'is_active' => $request->boolean('is_active'),
-        'sort_order' => $request->sort_order ?? 0,
-    ];
+        $data = [
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+            'is_active' => $request->has('is_active'),
+            'sort_order' => $request->sort_order ?? 0,
+        ];
 
-    if ($request->hasFile('icon')) {
-        $data['icon'] = $request->file('icon')->store('categories/icons', 'public');
+        if ($request->hasFile('icon')) {
+            $data['icon'] = $request->file('icon')->store('categories/icons', 'public');
+        }
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('categories/images', 'public');
+        }
+
+        Category::create($data);
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
-
-    if ($request->hasFile('image')) {
-        $data['image'] = $request->file('image')->store('categories/images', 'public');
-    }
-
-    Category::create($data);
-
-    return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
-}
-
 
     public function edit(Category $category)
     {
@@ -73,7 +72,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
-            'is_active' => $request->boolean('is_active'),
+            'is_active' => $request->has('is_active'),
             'sort_order' => $request->sort_order ?? 0,
         ];
 

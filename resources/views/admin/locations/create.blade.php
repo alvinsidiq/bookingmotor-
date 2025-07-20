@@ -36,11 +36,20 @@
                 <input type="text" name="contact_phone" id="contact_phone" class="mt-1 block w-full border border-white bg-black text-white rounded-md shadow-sm focus:ring-white focus:border-white" value="{{ old('contact_phone') }}">
                 @error('contact_phone') <span class="text-red-400 text-sm">{{ $message }}</span> @enderror
             </div>
+            <!-- Active -->
             <div class="flex items-center">
-                <input type="checkbox" name="is_active" id="is_active" class="h-4 w-4 text-white bg-black border-white focus:ring-white" {{ old('is_active') ? 'checked' : '' }}>
+                <!-- Hidden input to ensure unchecked sends value -->
+                <input type="hidden" name="is_active" value="0">
+
+                <!-- Checkbox that overrides it if checked -->
+                <input type="checkbox" name="is_active" id="is_active" value="1"
+                    class="h-4 w-4 text-white bg-black border-white focus:ring-white"
+                    {{ old('is_active') ? 'checked' : '' }}>
+
                 <label for="is_active" class="ml-2 block text-sm font-medium">Active</label>
                 @error('is_active') <span class="text-red-400 text-sm">{{ $message }}</span> @enderror
             </div>
+
             <div>
                 <label for="sort_order" class="block text-sm font-medium">Sort Order</label>
                 <input type="number" name="sort_order" id="sort_order" class="mt-1 block w-full border border-white bg-black text-white rounded-md shadow-sm focus:ring-white focus:border-white" value="{{ old('sort_order', 0) }}">

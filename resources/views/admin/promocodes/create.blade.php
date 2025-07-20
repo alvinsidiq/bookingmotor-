@@ -86,12 +86,13 @@
             </div>
 
             <div class="flex items-center space-x-2">
-                <input type="checkbox" name="is_active" id="is_active" class="h-4 w-4 text-blue-600 bg-gray-900 border border-gray-700 rounded"
-                    {{ old('is_active') ? 'checked' : '' }}>
-                <label for="is_active" class="block text-sm font-medium text-gray-300">Active</label>
-                @error('is_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </div>
-        </div>
+    <input type="hidden" name="is_active" value="0">
+    <input type="checkbox" name="is_active" id="is_active" class="h-4 w-4 text-blue-600 bg-gray-900 border border-gray-700 rounded"
+        value="1" {{ old('is_active') ? 'checked' : '' }}>
+    <label for="is_active" class="block text-sm font-medium text-gray-300">Active</label>
+    @error('is_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+</div>
+
 
         <div class="mt-4">
             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>

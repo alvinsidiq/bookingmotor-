@@ -96,19 +96,18 @@
                 @enderror
             </div>
 
-            <div class="flex items-center space-x-2 mt-5 md:mt-0">
-                <input 
-                    type="checkbox" 
-                    name="is_active" 
-                    id="is_active" 
-                    class="h-5 w-5 text-black focus:ring-black border-gray-700 rounded"
-                    {{ old('is_active', $location->is_active) ? 'checked' : '' }}
-                >
-                <label for="is_active" class="text-sm font-medium text-gray-900 select-none">Active</label>
-                @error('is_active') 
-                    <p class="text-red-700 text-sm mt-1">{{ $message }}</p> 
-                @enderror
-            </div>
+           <div class="flex items-center mt-2 space-x-2">
+    <!-- Hidden input agar is_active tetap terkirim sebagai 0 jika tidak dicentang -->
+    <input type="hidden" name="is_active" value="0">
+
+    <input type="checkbox" name="is_active" id="is_active" value="1"
+        class="h-4 w-4 text-blue-600 bg-gray-900 border-gray-700 rounded"
+        {{ old('is_active', $location->is_active) ? 'checked' : '' }}>
+
+    <label for="is_active" class="block text-sm font-medium text-gray-300">Active</label>
+    @error('is_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+</div>
+
 
             <div>
                 <label for="sort_order" class="block text-sm font-medium text-gray-900 mb-1">Sort Order</label>

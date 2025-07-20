@@ -79,20 +79,19 @@
                 </div>
 
                 <!-- Active -->
-                <div>
-                    <label for="is_active" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        Active
-                    </label>
-                    <input type="checkbox" name="is_active" id="is_active"
-                           class="h-5 w-5 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 rounded focus:ring-gray-500 transition"
-                           {{ old('is_active', $brand->is_active) ? 'checked' : '' }}>
-                    @error('is_active')
-                        <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+             <div class="flex items-center space-x-2 mt-2">
+                <!-- Hidden input -->
+                <input type="hidden" name="is_active" value="0">
+
+                <!-- Checkbox input -->
+                <input type="checkbox" name="is_active" id="is_active" value="1"
+                    class="h-4 w-4 text-blue-600 bg-gray-900 border-gray-700 rounded"
+                    {{ old('is_active', $brand->is_active) ? 'checked' : '' }}>
+
+                <label for="is_active" class="block text-sm font-medium text-gray-300">Active</label>
+                @error('is_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
+
 
                 <!-- Sort Order -->
                 <div>
