@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Promocode;
@@ -35,8 +36,10 @@ class PromocodeController extends Controller
             'valid_from' => 'required|date',
             'valid_until' => 'required|date|after_or_equal:valid_from',
             'max_usage' => 'required|integer|min:0',
-            'is_active' => 'boolean',
+            'is_active' => 'required|boolean',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
 
         Promocode::create($validated);
 
@@ -60,8 +63,10 @@ class PromocodeController extends Controller
             'valid_from' => 'required|date',
             'valid_until' => 'required|date|after_or_equal:valid_from',
             'max_usage' => 'required|integer|min:0',
-            'is_active' => 'boolean',
+            'is_active' => 'required|boolean',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
 
         $promocode->update($validated);
 

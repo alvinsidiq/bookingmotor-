@@ -30,9 +30,12 @@ class BrandController extends Controller
             'name' => 'required|string|max:100',
             'description' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'is_active' => 'boolean',
-            'sort_order' => 'integer|min:0',
+            'is_active' => 'required|boolean',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
+
+        // Force checkbox to be boolean
+        $validated['is_active'] = $request->has('is_active');
 
         // Generate unique slug
         $slug = Str::slug($request->name);
@@ -66,11 +69,13 @@ class BrandController extends Controller
             'name' => 'required|string|max:100',
             'description' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'is_active' => 'boolean',
-            'sort_order' => 'integer|min:0',
+            'is_active' => 'required|boolean',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
 
-        // Generate unique slug (exclude current brand)
+        $validated['is_active'] = $request->has('is_active');
+
+        // Generate unique slug
         $slug = Str::slug($request->name);
         $originalSlug = $slug;
         $counter = 1;

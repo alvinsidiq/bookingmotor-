@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Location;
@@ -31,9 +32,12 @@ class LocationController extends Controller
             'longitude' => 'nullable|numeric|between:-180,180',
             'operating_hours' => 'nullable|json',
             'contact_phone' => 'nullable|string|max:20',
-            'is_active' => 'boolean',
+            'is_active' => 'required|boolean',
             'sort_order' => 'integer|min:0',
         ]);
+
+        // Ensure checkbox is interpreted as boolean
+        $validated['is_active'] = $request->has('is_active');
 
         Location::create($validated);
 
@@ -54,9 +58,11 @@ class LocationController extends Controller
             'longitude' => 'nullable|numeric|between:-180,180',
             'operating_hours' => 'nullable|json',
             'contact_phone' => 'nullable|string|max:20',
-            'is_active' => 'boolean',
+            'is_active' => 'required|boolean',
             'sort_order' => 'integer|min:0',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
 
         $location->update($validated);
 

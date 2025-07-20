@@ -50,16 +50,17 @@
             </div>
 
             {{-- Active --}}
-            <div class="flex items-center space-x-2 md:col-span-2">
-                <input type="hidden" name="is_active" value="0">
-                <input type="checkbox" name="is_active" id="is_active" value="1"
-                    class="h-4 w-4 text-white bg-gray-800 border-gray-600 rounded"
-                    {{ old('is_active') ? 'checked' : '' }}>
-                <label for="is_active" class="text-sm font-medium text-gray-300">Active</label>
-                @error('is_active')
-                    <span class="text-red-400 text-sm ml-4">{{ $message }}</span>
-                @enderror
-            </div>
+<div class="flex items-center space-x-2 md:col-span-2 mt-4">
+    <input type="hidden" name="is_active" value="0"> {{-- default value if unchecked --}}
+    <input type="checkbox" name="is_active" id="is_active" value="1"
+        class="h-4 w-4 text-white bg-gray-800 border-gray-600 rounded focus:ring-white focus:border-white"
+        {{ old('is_active', true) ? 'checked' : '' }}>
+    <label for="is_active" class="text-sm font-medium text-gray-300">Active</label>
+</div>
+@error('is_active')
+    <span class="text-red-400 text-sm mt-1 block">{{ $message }}</span>
+@enderror
+
 
             {{-- Sort Order --}}
             <div>

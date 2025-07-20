@@ -74,20 +74,28 @@
                 </div>
 
                 <!-- Active -->
-                <div>
-                    <label for="is_active" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        Active
-                    </label>
-                    <input type="checkbox" name="is_active" id="is_active"
-                           class="h-5 w-5 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 rounded focus:ring-gray-500 transition"
-                           {{ old('is_active') ? 'checked' : '' }}>
-                    @error('is_active')
-                        <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                <!-- Active -->
+<div>
+    <label for="is_active" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Active
+    </label>
+
+    <!-- hidden field to send false when unchecked -->
+    <input type="hidden" name="is_active" value="0">
+
+    <!-- checkbox for true -->
+    <input type="checkbox" name="is_active" id="is_active" value="1"
+           class="h-5 w-5 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 rounded focus:ring-gray-500 transition"
+           {{ old('is_active', true) ? 'checked' : '' }}>
+
+    @error('is_active')
+        <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+    @enderror
+</div>
+
 
                 <!-- Sort Order -->
                 <div>
